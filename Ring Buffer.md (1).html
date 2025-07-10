@@ -1,0 +1,137 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Ring Buffer.md</title><style></style></head><body id="preview">
+<hr>
+<pre><code class="has-line-data" data-line-start="4" data-line-end="136" class="language-c"><span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdbool.h&gt;</span></span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span>
+
+<span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> MAX_BUFFER_SIZE <span class="hljs-number">5</span>  <span class="hljs-comment">///&lt; Ring buffer'ın maksimum kapasitesi</span></span>
+
+<span class="hljs-comment">/**
+ * @brief Ring buffer yapısı
+ */</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> {
+    <span class="hljs-keyword">char</span> buffer[MAX_BUFFER_SIZE];  <span class="hljs-comment">///&lt; Verilerin tutulduğu dizi</span>
+    <span class="hljs-keyword">int</span> head;                      <span class="hljs-comment">///&lt; Son yazılan konum</span>
+    <span class="hljs-keyword">int</span> tail;                      <span class="hljs-comment">///&lt; Son okunan konum</span>
+    <span class="hljs-keyword">int</span> count;                     <span class="hljs-comment">///&lt; Mevcut eleman sayısı</span>
+} RingBuffer;
+
+<span class="hljs-comment">/**
+ * @brief Ring buffer'ı başlatır (sıfırlar).
+ * @param rb RingBuffer pointer'ı
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RingBufferInit</span><span class="hljs-params">(RingBuffer *rb)</span></span>;
+
+<span class="hljs-comment">/**
+ * @brief Ring buffer'a veri yazar.
+ * 
+ * Eğer buffer doluysa, en eski veri silinir (overwrite).
+ * 
+ * @param rb RingBuffer pointer'ı
+ * @param data Yazılacak karakter
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RingBufferWrite</span><span class="hljs-params">(RingBuffer *rb, <span class="hljs-keyword">char</span> data)</span></span>;
+
+<span class="hljs-comment">/**
+ * @brief Ring buffer'dan veri okur.
+ * @param rb RingBuffer pointer'ı
+ * @return Okunan karakter
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">char</span> <span class="hljs-title">RingBufferRead</span><span class="hljs-params">(RingBuffer *rb)</span></span>;
+
+<span class="hljs-comment">/**
+ * @brief Buffer dolu mu kontrol eder.
+ * @param rb RingBuffer pointer'ı
+ * @return true Doluysa, false değilse
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">RingBufferIsFull</span><span class="hljs-params">(RingBuffer *rb)</span></span>;
+
+<span class="hljs-comment">/**
+ * @brief Buffer boş mu kontrol eder.
+ * @param rb RingBuffer pointer'ı
+ * @return true Boşsa, false değilse
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">RingBufferIsEmpty</span><span class="hljs-params">(RingBuffer *rb)</span></span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    RingBuffer rb;
+    RingBufferInit(&amp;rb);
+    
+    <span class="hljs-keyword">char</span> transmitted_data[] = <span class="hljs-string">"eclipse"</span>;
+    <span class="hljs-keyword">int</span> length = <span class="hljs-built_in">strlen</span>(transmitted_data);
+    
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Yazilacak veri: %s\n"</span>, transmitted_data);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Buffer boyutu: %d\n\n"</span>, MAX_BUFFER_SIZE);
+    
+    <span class="hljs-comment">// Veriyi karakter karakter buffer'a yaz</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c yaziliyor... "</span>, transmitted_data[i]);
+        
+        <span class="hljs-keyword">if</span> (RingBufferIsFull(&amp;rb)) {
+            <span class="hljs-comment">// Doluysa üzerine yazılacak karakteri bildir</span>
+            <span class="hljs-keyword">char</span> overwritten = rb.buffer[rb.head];
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"('%c' yerine gecti)"</span>, overwritten);
+        }
+        
+        RingBufferWrite(&amp;rb, transmitted_data[i]);
+        
+        <span class="hljs-comment">// Anlık buffer içeriğini göster</span>
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">" -&gt; "</span>);
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt; rb.count; k++) {
+            <span class="hljs-keyword">int</span> index = (rb.tail + k) % MAX_BUFFER_SIZE;
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"[%c]"</span>, rb.buffer[index]);
+        }
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+    }
+    
+    <span class="hljs-comment">// Buffer'daki veriyi sırayla oku</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Okuma: "</span>);
+    <span class="hljs-keyword">while</span> (!RingBufferIsEmpty(&amp;rb)) {
+        <span class="hljs-keyword">char</span> c = RingBufferRead(&amp;rb);
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%c"</span>, c);
+    }
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RingBufferInit</span><span class="hljs-params">(RingBuffer *rb)</span> </span>{
+    rb-&gt;head = <span class="hljs-number">0</span>;
+    rb-&gt;tail = <span class="hljs-number">0</span>;
+    rb-&gt;count = <span class="hljs-number">0</span>;
+
+    <span class="hljs-comment">// Buffer içeriğini temizle (isteğe bağlı)</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; MAX_BUFFER_SIZE; i++) {
+        rb-&gt;buffer[i] = <span class="hljs-string">'\0'</span>;
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">RingBufferWrite</span><span class="hljs-params">(RingBuffer *rb, <span class="hljs-keyword">char</span> data)</span> </span>{
+    <span class="hljs-keyword">if</span> (rb-&gt;count == MAX_BUFFER_SIZE) {
+        <span class="hljs-comment">// Doluysa en eski verinin üstüne yazılacak</span>
+        rb-&gt;tail = (rb-&gt;tail + <span class="hljs-number">1</span>) % MAX_BUFFER_SIZE;
+    } <span class="hljs-keyword">else</span> {
+        rb-&gt;count++;
+    }
+
+    rb-&gt;buffer[rb-&gt;head] = data;
+    rb-&gt;head = (rb-&gt;head + <span class="hljs-number">1</span>) % MAX_BUFFER_SIZE;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">char</span> <span class="hljs-title">RingBufferRead</span><span class="hljs-params">(RingBuffer *rb)</span> </span>{
+    <span class="hljs-keyword">char</span> data = rb-&gt;buffer[rb-&gt;tail];
+    rb-&gt;tail = (rb-&gt;tail + <span class="hljs-number">1</span>) % MAX_BUFFER_SIZE;
+    rb-&gt;count--;
+    <span class="hljs-keyword">return</span> data;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">RingBufferIsFull</span><span class="hljs-params">(RingBuffer *rb)</span> </span>{
+    <span class="hljs-keyword">return</span> (rb-&gt;count == MAX_BUFFER_SIZE);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">RingBufferIsEmpty</span><span class="hljs-params">(RingBuffer *rb)</span> </span>{
+    <span class="hljs-keyword">return</span> (rb-&gt;count == <span class="hljs-number">0</span>);
+}
+</code></pre>
+<hr>
+
+</body></html>
