@@ -1,57 +1,53 @@
-
----
-
-```c
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 
-#define MAX_BUFFER_SIZE 5  ///< Ring buffer'ýn maksimum kapasitesi
+#define MAX_BUFFER_SIZE 5  ///< Ring buffer maximum capacity
 
 /**
- * @brief Ring buffer yapýsý
+ * @brief Ring buffer structure
  */
 typedef struct {
-    char buffer[MAX_BUFFER_SIZE];  ///< Verilerin tutulduðu dizi
-    int head;                      ///< Son yazýlan konum
-    int tail;                      ///< Son okunan konum
-    int count;                     ///< Mevcut eleman sayýsý
+    char buffer[MAX_BUFFER_SIZE];  ///< Data storage array
+    int head;                      ///< Last written position
+    int tail;                      ///< Last read position
+    int count;                     ///< Current element count
 } RingBuffer;
 
 /**
- * @brief Ring buffer'ý baþlatýr (sýfýrlar).
- * @param rb RingBuffer pointer'ý
+ * @brief Initialize the ring buffer (reset to zero).
+ * @param rb RingBuffer pointer
  */
 void RingBufferInit(RingBuffer *rb);
 
 /**
- * @brief Ring buffer'a veri yazar.
+ * @brief Write data to the ring buffer.
  * 
- * Eðer buffer doluysa, en eski veri silinir (overwrite).
+ * If buffer is full, oldest data is overwritten.
  * 
- * @param rb RingBuffer pointer'ý
- * @param data Yazýlacak karakter
+ * @param rb RingBuffer pointer
+ * @param data Character to write
  */
 void RingBufferWrite(RingBuffer *rb, char data);
 
 /**
- * @brief Ring buffer'dan veri okur.
- * @param rb RingBuffer pointer'ý
- * @return Okunan karakter
+ * @brief Read data from the ring buffer.
+ * @param rb RingBuffer pointer
+ * @return Read character
  */
 char RingBufferRead(RingBuffer *rb);
 
 /**
- * @brief Buffer dolu mu kontrol eder.
- * @param rb RingBuffer pointer'ý
- * @return true Doluysa, false deðilse
+ * @brief Check if buffer is full.
+ * @param rb RingBuffer pointer
+ * @return true if full, false otherwise
  */
 bool RingBufferIsFull(RingBuffer *rb);
 
 /**
- * @brief Buffer boþ mu kontrol eder.
- * @param rb RingBuffer pointer'ý
- * @return true Boþsa, false deðilse
+ * @brief Check if buffer is empty.
+ * @param rb RingBuffer pointer
+ * @return true if empty, false otherwise
  */
 bool RingBufferIsEmpty(RingBuffer *rb);
 
@@ -62,22 +58,22 @@ int main() {
     char transmitted_data[] = "eclipse";
     int length = strlen(transmitted_data);
     
-    printf("Yazilacak veri: %s\n", transmitted_data);
-    printf("Buffer boyutu: %d\n\n", MAX_BUFFER_SIZE);
+    printf("Data to write: %s\n", transmitted_data);
+    printf("Buffer size: %d\n\n", MAX_BUFFER_SIZE);
     
-    // Veriyi karakter karakter buffer'a yaz
+    // Write data character by character to buffer
     for(int i = 0; i < length; i++) {
-        printf("%c yaziliyor... ", transmitted_data[i]);
+        printf("%c writing... ", transmitted_data[i]);
         
         if (RingBufferIsFull(&rb)) {
-            // Doluysa üzerine yazýlacak karakteri bildir
+            // If full, notify which character will be overwritten
             char overwritten = rb.buffer[rb.head];
-            printf("('%c' yerine gecti)", overwritten);
+            printf("(replacing '%c')", overwritten);
         }
         
         RingBufferWrite(&rb, transmitted_data[i]);
         
-        // Anlýk buffer içeriðini göster
+        // Show current buffer content
         printf(" -> ");
         for(int k = 0; k < rb.count; k++) {
             int index = (rb.tail + k) % MAX_BUFFER_SIZE;
@@ -86,8 +82,8 @@ int main() {
         printf("\n");
     }
     
-    // Buffer'daki veriyi sýrayla oku
-    printf("Okuma: ");
+    // Read data from buffer sequentially
+    printf("Reading: ");
     while (!RingBufferIsEmpty(&rb)) {
         char c = RingBufferRead(&rb);
         printf("%c", c);
@@ -100,8 +96,8 @@ void RingBufferInit(RingBuffer *rb) {
     rb->head = 0;
     rb->tail = 0;
     rb->count = 0;
-
-    // Buffer içeriðini temizle (isteðe baðlý)
+    
+    // Clear buffer content (optional)
     for(int i = 0; i < MAX_BUFFER_SIZE; i++) {
         rb->buffer[i] = '\0';
     }
@@ -109,12 +105,12 @@ void RingBufferInit(RingBuffer *rb) {
 
 void RingBufferWrite(RingBuffer *rb, char data) {
     if (rb->count == MAX_BUFFER_SIZE) {
-        // Doluysa en eski verinin üstüne yazýlacak
+        // If full, overwrite oldest data
         rb->tail = (rb->tail + 1) % MAX_BUFFER_SIZE;
     } else {
         rb->count++;
     }
-
+    
     rb->buffer[rb->head] = data;
     rb->head = (rb->head + 1) % MAX_BUFFER_SIZE;
 }
@@ -133,6 +129,3 @@ bool RingBufferIsFull(RingBuffer *rb) {
 bool RingBufferIsEmpty(RingBuffer *rb) {
     return (rb->count == 0);
 }
-```
-
----

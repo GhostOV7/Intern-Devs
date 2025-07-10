@@ -1,0 +1,144 @@
+\doxysection{C\+:/\+Users/\+ASUS-\/\+PC/\+Desktop/\+Intern-\/\+Devs/\+Scripts(Onur)/ring\+\_\+buffer.c File Reference}
+\hypertarget{ring__buffer_8c}{}\label{ring__buffer_8c}\index{C:/Users/ASUS-\/PC/Desktop/Intern-\/Devs/Scripts(Onur)/ring\_buffer.c@{C:/Users/ASUS-\/PC/Desktop/Intern-\/Devs/Scripts(Onur)/ring\_buffer.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_ring_buffer}{Ring\+Buffer}}
+\begin{DoxyCompactList}\small\item\em Ring buffer structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{ring__buffer_8c_ad4d796b98c583d49e83adabd74a63bf6}{MAX\+\_\+\+BUFFER\+\_\+\+SIZE}}~5
+\begin{DoxyCompactList}\small\item\em Ring buffer maximum capacity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{ring__buffer_8c_a80c1d7aeaa46d0e6efc151dd1fbc9f8e}{Ring\+Buffer\+Init}} (\mbox{\hyperlink{struct_ring_buffer}{Ring\+Buffer}} \texorpdfstring{$\ast$}{*}rb)
+\begin{DoxyCompactList}\small\item\em Initialize the ring buffer (reset to zero). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ring__buffer_8c_ab3c095a23fe2bb1b6dade92b1ca9be94}{Ring\+Buffer\+Write}} (\mbox{\hyperlink{struct_ring_buffer}{Ring\+Buffer}} \texorpdfstring{$\ast$}{*}rb, char data)
+\begin{DoxyCompactList}\small\item\em Write data to the ring buffer. \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{ring__buffer_8c_a96bf3d2db467a955228edd2f50b06be5}{Ring\+Buffer\+Read}} (\mbox{\hyperlink{struct_ring_buffer}{Ring\+Buffer}} \texorpdfstring{$\ast$}{*}rb)
+\begin{DoxyCompactList}\small\item\em Read data from the ring buffer. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{ring__buffer_8c_a9df05fbf1e9aa35a37d28fdd7a74cdd0}{Ring\+Buffer\+Is\+Full}} (\mbox{\hyperlink{struct_ring_buffer}{Ring\+Buffer}} \texorpdfstring{$\ast$}{*}rb)
+\begin{DoxyCompactList}\small\item\em Check if buffer is full. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{ring__buffer_8c_a62061101fa5b1e56fe9533e53b831e20}{Ring\+Buffer\+Is\+Empty}} (\mbox{\hyperlink{struct_ring_buffer}{Ring\+Buffer}} \texorpdfstring{$\ast$}{*}rb)
+\begin{DoxyCompactList}\small\item\em Check if buffer is empty. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{ring__buffer_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{ring__buffer_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{ring__buffer_8c_ad4d796b98c583d49e83adabd74a63bf6}\index{ring\_buffer.c@{ring\_buffer.c}!MAX\_BUFFER\_SIZE@{MAX\_BUFFER\_SIZE}}
+\index{MAX\_BUFFER\_SIZE@{MAX\_BUFFER\_SIZE}!ring\_buffer.c@{ring\_buffer.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_BUFFER\_SIZE}{MAX\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily \label{ring__buffer_8c_ad4d796b98c583d49e83adabd74a63bf6} 
+\#define MAX\+\_\+\+BUFFER\+\_\+\+SIZE~5}
+
+
+
+Ring buffer maximum capacity. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{ring__buffer_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{ring__buffer_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{ring\_buffer.c@{ring\_buffer.c}!main@{main}}
+\index{main@{main}!ring\_buffer.c@{ring\_buffer.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{ring__buffer_8c_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{ring__buffer_8c_a80c1d7aeaa46d0e6efc151dd1fbc9f8e}\index{ring\_buffer.c@{ring\_buffer.c}!RingBufferInit@{RingBufferInit}}
+\index{RingBufferInit@{RingBufferInit}!ring\_buffer.c@{ring\_buffer.c}}
+\doxysubsubsection{\texorpdfstring{RingBufferInit()}{RingBufferInit()}}
+{\footnotesize\ttfamily \label{ring__buffer_8c_a80c1d7aeaa46d0e6efc151dd1fbc9f8e} 
+void Ring\+Buffer\+Init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ring_buffer}{Ring\+Buffer}} \texorpdfstring{$\ast$}{*}}]{rb}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the ring buffer (reset to zero). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rb} & \doxylink{struct_ring_buffer}{Ring\+Buffer} pointer \\
+\hline
+\end{DoxyParams}
+\Hypertarget{ring__buffer_8c_a62061101fa5b1e56fe9533e53b831e20}\index{ring\_buffer.c@{ring\_buffer.c}!RingBufferIsEmpty@{RingBufferIsEmpty}}
+\index{RingBufferIsEmpty@{RingBufferIsEmpty}!ring\_buffer.c@{ring\_buffer.c}}
+\doxysubsubsection{\texorpdfstring{RingBufferIsEmpty()}{RingBufferIsEmpty()}}
+{\footnotesize\ttfamily \label{ring__buffer_8c_a62061101fa5b1e56fe9533e53b831e20} 
+bool Ring\+Buffer\+Is\+Empty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ring_buffer}{Ring\+Buffer}} \texorpdfstring{$\ast$}{*}}]{rb}{}\end{DoxyParamCaption})}
+
+
+
+Check if buffer is empty. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rb} & \doxylink{struct_ring_buffer}{Ring\+Buffer} pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if empty, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{ring__buffer_8c_a9df05fbf1e9aa35a37d28fdd7a74cdd0}\index{ring\_buffer.c@{ring\_buffer.c}!RingBufferIsFull@{RingBufferIsFull}}
+\index{RingBufferIsFull@{RingBufferIsFull}!ring\_buffer.c@{ring\_buffer.c}}
+\doxysubsubsection{\texorpdfstring{RingBufferIsFull()}{RingBufferIsFull()}}
+{\footnotesize\ttfamily \label{ring__buffer_8c_a9df05fbf1e9aa35a37d28fdd7a74cdd0} 
+bool Ring\+Buffer\+Is\+Full (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ring_buffer}{Ring\+Buffer}} \texorpdfstring{$\ast$}{*}}]{rb}{}\end{DoxyParamCaption})}
+
+
+
+Check if buffer is full. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rb} & \doxylink{struct_ring_buffer}{Ring\+Buffer} pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if full, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{ring__buffer_8c_a96bf3d2db467a955228edd2f50b06be5}\index{ring\_buffer.c@{ring\_buffer.c}!RingBufferRead@{RingBufferRead}}
+\index{RingBufferRead@{RingBufferRead}!ring\_buffer.c@{ring\_buffer.c}}
+\doxysubsubsection{\texorpdfstring{RingBufferRead()}{RingBufferRead()}}
+{\footnotesize\ttfamily \label{ring__buffer_8c_a96bf3d2db467a955228edd2f50b06be5} 
+char Ring\+Buffer\+Read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ring_buffer}{Ring\+Buffer}} \texorpdfstring{$\ast$}{*}}]{rb}{}\end{DoxyParamCaption})}
+
+
+
+Read data from the ring buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rb} & \doxylink{struct_ring_buffer}{Ring\+Buffer} pointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Read character 
+\end{DoxyReturn}
+\Hypertarget{ring__buffer_8c_ab3c095a23fe2bb1b6dade92b1ca9be94}\index{ring\_buffer.c@{ring\_buffer.c}!RingBufferWrite@{RingBufferWrite}}
+\index{RingBufferWrite@{RingBufferWrite}!ring\_buffer.c@{ring\_buffer.c}}
+\doxysubsubsection{\texorpdfstring{RingBufferWrite()}{RingBufferWrite()}}
+{\footnotesize\ttfamily \label{ring__buffer_8c_ab3c095a23fe2bb1b6dade92b1ca9be94} 
+void Ring\+Buffer\+Write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_ring_buffer}{Ring\+Buffer}} \texorpdfstring{$\ast$}{*}}]{rb}{, }\item[{char}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Write data to the ring buffer. 
+
+If buffer is full, oldest data is overwritten.
+
+
+\begin{DoxyParams}{Parameters}
+{\em rb} & \doxylink{struct_ring_buffer}{Ring\+Buffer} pointer \\
+\hline
+{\em data} & Character to write \\
+\hline
+\end{DoxyParams}
