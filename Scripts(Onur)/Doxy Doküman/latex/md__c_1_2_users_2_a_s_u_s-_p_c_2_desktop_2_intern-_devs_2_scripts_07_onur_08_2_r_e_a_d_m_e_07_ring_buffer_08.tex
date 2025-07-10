@@ -1,0 +1,23 @@
+\chapter{Ring Buffer -\/ Doxygen Açıklama Dosyası }
+\hypertarget{md__c_1_2_users_2_a_s_u_s-_p_c_2_desktop_2_intern-_devs_2_scripts_07_onur_08_2_r_e_a_d_m_e_07_ring_buffer_08}{}\label{md__c_1_2_users_2_a_s_u_s-_p_c_2_desktop_2_intern-_devs_2_scripts_07_onur_08_2_r_e_a_d_m_e_07_ring_buffer_08}\index{Ring Buffer -\/ Doxygen Açıklama Dosyası@{Ring Buffer -\/ Doxygen Açıklama Dosyası}}
+\label{md__c_1_2_users_2_a_s_u_s-_p_c_2_desktop_2_intern-_devs_2_scripts_07_onur_08_2_r_e_a_d_m_e_07_ring_buffer_08_autotoc_md0}%
+\Hypertarget{md__c_1_2_users_2_a_s_u_s-_p_c_2_desktop_2_intern-_devs_2_scripts_07_onur_08_2_r_e_a_d_m_e_07_ring_buffer_08_autotoc_md0}%
+
+
+Bu proje, sabit boyutlu bir {\bfseries{ring buffer (halka tampon)}} yapısının C diliyle implementasyonudur.\hypertarget{md__c_1_2_users_2_a_s_u_s-_p_c_2_desktop_2_intern-_devs_2_scripts_07_onur_08_2_r_e_a_d_m_e_07_ring_buffer_08_autotoc_md1}{}\doxysection{\texorpdfstring{Özellikler}{Özellikler}}\label{md__c_1_2_users_2_a_s_u_s-_p_c_2_desktop_2_intern-_devs_2_scripts_07_onur_08_2_r_e_a_d_m_e_07_ring_buffer_08_autotoc_md1}
+
+\begin{DoxyItemize}
+\item FIFO (First-\/\+In First-\/\+Out) yapısı
+\item Otomatik veri üzerine yazma özelliği (overwriting)
+\item Tampon dolu/boş kontrolü
+\item Temiz ve basit kullanım
+\end{DoxyItemize}\hypertarget{md__c_1_2_users_2_a_s_u_s-_p_c_2_desktop_2_intern-_devs_2_scripts_07_onur_08_2_r_e_a_d_m_e_07_ring_buffer_08_autotoc_md2}{}\doxysection{\texorpdfstring{Kullanım Örneği}{Kullanım Örneği}}\label{md__c_1_2_users_2_a_s_u_s-_p_c_2_desktop_2_intern-_devs_2_scripts_07_onur_08_2_r_e_a_d_m_e_07_ring_buffer_08_autotoc_md2}
+Aşağıdaki örnekte "{}eclipse"{} kelimesi tek tek yazılıyor ve ring buffer\textquotesingle{}a ekleniyor. Tampon dolduğunda eski veri üzerine yazılıyor.
+
+\`{}\`{}\`{}c \doxylink{struct_ring_buffer}{Ring\+Buffer} rb; Ring\+Buffer\+Init(\&rb);
+
+char transmitted\+\_\+data\mbox{[}\mbox{]} = "{}eclipse"{};
+
+for (int i = 0; i \texorpdfstring{$<$}{<} strlen(transmitted\+\_\+data); i++) \{ Ring\+Buffer\+Write(\&rb, transmitted\+\_\+data\mbox{[}i\mbox{]}); \}
+
+while (!\+Ring\+Buffer\+Is\+Empty(\&rb)) \{ char c = Ring\+Buffer\+Read(\&rb); printf("{}\%c"{}, c); \} 

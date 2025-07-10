@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['head_0',['head',['../struct_ring_buffer.html#a069f41294c93e8b80090340741dc1f4a',1,'RingBuffer']]]
+  ['count_0',['count',['../struct_ring_buffer.html#ad2b3cfd288aa001730b90d28c3e4112c',1,'RingBuffer']]]
 ];

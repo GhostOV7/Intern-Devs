@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['count_0',['count',['../struct_ring_buffer.html#ad2b3cfd288aa001730b90d28c3e4112c',1,'RingBuffer']]]
+  ['buffer_0',['buffer',['../struct_ring_buffer.html#a171667682a5c68f82cccf19fab521148',1,'RingBuffer']]],
+  ['buffer_20doxygen_20açıklama_20dosyası_1',['Ring Buffer - Doxygen Açıklama Dosyası',['../md__c_1_2_users_2_a_s_u_s-_p_c_2_desktop_2_intern-_devs_2_scripts_07_onur_08_2_r_e_a_d_m_e_07_ring_buffer_08.html',1,'']]]
 ];
